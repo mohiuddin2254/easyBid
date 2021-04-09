@@ -48,7 +48,7 @@
 					?>
 					<td>
 						<input type="hidden" name="s_id" value="<?php echo $c_info['a_id'];?>" style="display: none;">
-						<a type="button" class="btn btn-success" data-toggle="modal" data-target="#givePay<?php echo $c_info['a_id'];?>" data-whatever="@mdo">Give Payment</a>
+						<a type="button" href="<?php echo base_url();?>Payment/confirm" class="btn btn-success">Give Payment</a>
 						<div class="modal fade" id="givePay<?php echo $c_info['a_id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">

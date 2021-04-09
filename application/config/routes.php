@@ -67,3 +67,5 @@ $route['Admin'] = '/users_control';
 $route['Product']='home/auction_info/HP';
 
 $route['Furniture'] = 'home/category_info/Furniture';
+
+$route['stripePost']['post'] = "Payment/stripePost";

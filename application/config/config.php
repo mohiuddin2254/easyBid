@@ -25,6 +25,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] = 'http://localhost/easyBid/';
 
+
+$config['stripe_key'] = 'pk_test_51IeMKUIohnu4ekrKsWlfZfdkA8WDewouvjrwaMRMwF89zDQAncM6rLWhn4mnAlaFDWZSwhn9jSwUlNkPYbOlP3L700qhQnOSCj';
+
+$config['stripe_secret'] = 'sk_test_51IeMKUIohnu4ekrKMwYa2ZFG36ykbaXHAIRAP927QiCNhv9Y9Py9TNEG4xgpUBDtaSrWDnPsPlXT2dEF8qdDyOe500ksvgPyo3';
+
 /*
 |--------------------------------------------------------------------------
 | Index File
