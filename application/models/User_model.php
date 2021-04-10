@@ -16,24 +16,15 @@
 	   
 		function verify_email($key)
 		{
-			$this->db->where('verification_key', $key);
-			$this->db->where('is_email_verified', 'no');
-			$query = $this->db->get('tbl_user');
 
-			if($query->num_rows() == 0)
-			{
-				$data = array(
-					'is_email_verified'  => 'yes'
+			$insert_data= array(
+					'user_status' => 1
 				);
-
-				$this->db->where('us_verification_key', $key);
-				$this->db->update('tbl_users', $data);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			$this->db->where('user_status', 0);
+			$this->db->where('verification_key', $key);
+			$this->db->update('tbl_users', $insert_data); 
+			
+			return true;
 		}
 		
 		
@@ -128,36 +119,36 @@
 		$data = $query->result_array();
 		return $data;
 	}
-	//  function addUser(){
-	// 		date_default_timezone_set('Asia/Dhaka');
-	// 		$date = date('Y-m-d',time());
+	 function addUser(){
+			date_default_timezone_set('Asia/Dhaka');
+			$date = date('Y-m-d',time());
 
 			
-	// 		if(!$this->session->userdata('user_id')){
-	// 			$user_id = 0;
-	// 		}
-	// 		else 
-	// 			$user_id = $this->session->userdata('user_id');
+			if(!$this->session->userdata('user_id')){
+				$user_id = 0;
+			}
+			else 
+				$user_id = $this->session->userdata('user_id');
 			
 			
-	// 		$insert_data= array(
-	// 				'user_type' => $this->input->post('user_type'),
-	// 				'user_name' => $this->input->post('user_name'),
-	// 				'user_email' => $this->input->post('user_email'),
-	// 				'user_password' => md5($this->input->post('user_password')),
-	// 				'user_doc' => $date,
-	// 				'user_status' => $user_status,
-	// 				'user_created_by' => $user_id
-	// 					);
-	// 		if($this->db->insert('tbl_users',$insert_data)){
-	// 			$data['status'] = 'success';
-	// 			//return $this->db->insert_id();
-	// 		}
-	// 		else{
-	// 			$data['status'] = 'error';
-	// 			return FALSE;
-	// 		}
-	// 	}  
+			$insert_data= array(
+					'user_type' => $this->input->post('user_type'),
+					'user_name' => $this->input->post('user_name'),
+					'user_email' => $this->input->post('user_email'),
+					'user_password' => md5($this->input->post('user_password')),
+					'user_doc' => $date,
+					'user_status' => $user_status,
+					'user_created_by' => $user_id
+						);
+			if($this->db->insert('tbl_users',$insert_data)){
+				$data['status'] = 'success';
+				//return $this->db->insert_id();
+			}
+			else{
+				$data['status'] = 'error';
+				return FALSE;
+			}
+		}  
 		
 		
 	//edit user start

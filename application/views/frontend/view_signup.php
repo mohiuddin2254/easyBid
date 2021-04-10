@@ -13,9 +13,15 @@
                             <!-- Login Box -->
 							<div class="col-md-2"></div>
                             <div class="col-md-8 col-md-offset-3 col-sm-offset-3">
-								
-							<?php if (isset($_SESSION['success'])) { ?>
-								<div class="alert alert-success"> <?php echo $_SESSION['success']; ?></div>
+							<?php
+								if($this->session->flashdata('signup_message')){
+								echo '<div class="alert alert-success text-center">
+										'.$this->session->flashdata("signup_message").'
+									</div>';
+								}
+							?>
+							<?php if (isset($message)) { ?>
+								<div class="alert alert-success"> <?php echo $message;?></div>
 							<?php
 							} ?>
 							<?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>

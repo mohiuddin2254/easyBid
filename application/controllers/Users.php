@@ -41,7 +41,7 @@
 					$message="<p>Hi ".$this->input->post('user_name').",</p>
 					<br>
 					<p>Please verify your email by clicking this <a href='".base_url()."Users/verify_email/".$verification_key."'>link</a></p>
-					<p>once you click this link your email will be verified and you can login into TourMe dashboard.</p>
+					<p>once you click this link your email will be verified and you can login into EasyBid dashboard.</p>
 					<br>
 					<p>Thanks</p>";
 
@@ -58,7 +58,9 @@
 						'charset'    => 'iso-8859-1',
 						'wordwrap'   => TRUE
 					   );
-					   $this->load->library('email', $config);
+					   $this->load->library('email');
+					   $this->email->initialize($config);  
+					 
 					   $this->email->set_newline("\r\n");
 					   $this->email->from('muzimohi@gmail.com');  //same email u use for smtp_user 
 					   $this->email->to($this->input->post('user_email'));
@@ -69,7 +71,7 @@
 					{
 					$this->session->set_flashdata('signup_message', 'Check in your email for email verification mail');
 					$this->session->flashdata('signup_message');
-					redirect('Users');
+					redirect('Signup');
 				
 					}
 					else{
@@ -89,8 +91,8 @@
 			if($this->uri->segment(3))
 			{
 				$verification_key=$this->uri->segment(3);
-				//print_r($verification_key);
-				if($this->user_model->verify_email($verification_key))
+				$vkey = $this->user_model->verify_email($verification_key);
+				if($vkey == true)
 				{
 					$data['message'] = '<h1 align="center">Your Email has been successfully verified, now you can login from <a href="'.base_url().'Login">here</a></h1>';
 				}
@@ -100,7 +102,7 @@
 
 				$data['header']="Registration";
 				$this->load->view('frontend/layouts/header',$data);
-				$this->load->view('frontend/view_signup');
+				$this->load->view('frontend/view_signup',$data);
 				$this->load->view('frontend/layouts/footer');
 			}
 		}
@@ -108,40 +110,7 @@
 		
 		
 	
-		function registration2(){
 		
-		
-
-        if (isset($_POST['register'])) {
-        	$this->form_validation->set_rules('user_type', 'User Type', 'required');
-            $this->form_validation->set_rules('user_name', 'User Name', 'required|is_unique[tbl_users.user_name]');
-            $this->form_validation->set_rules('user_email', 'Email','required|trim|is_unique[tbl_users.user_email]');
-            $this->form_validation->set_rules('user_password', 'Password', 'required|min_length[8]');
-            $this->form_validation->set_rules('user_password', 'Confirm Password', 'required|min_length[8]|matches[user_password]');
-            if ($this->form_validation->run() == TRUE) {
-				date_default_timezone_set('Asia/Dhaka');
-				$date = date('Y-m-d',time());
-
-                $data = array(
-                    'user_type' => $_POST['user_type'],
-                    'user_name' => $_POST['user_name'],
-                    'user_email' => $_POST['user_email'],
-                    'user_password' => md5($_POST['user_password']),
-                    'user_doc' => $date,
-                   
-                );
-                $this->db->insert('tbl_users', $data);
-
-                $this->session->set_flashdata("success", "Your account has been registered. Waiting for Admin Approval. Thanks!!!");
-                redirect("users/registration", "refresh");
-            }
-        }
-        //load view
-        $data['header']="Registration";
-		$this->load->view('frontend/layouts/header',$data);
-		$this->load->view('frontend/view_signup');
-		$this->load->view('frontend/layouts/footer');
-	}
 	
 		public function login(){
 			
